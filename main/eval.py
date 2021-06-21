@@ -102,6 +102,9 @@ def read_txt(txtPath):
         lines[i] = line.strip()
     return lines
 
+def sigmoid(x):
+    s = 1 / (1 + np.exp(-x))
+    return s
 
 if __name__ == '__main__':
     args = parse_args()
@@ -196,7 +199,7 @@ if __name__ == '__main__':
         for idx, each_mask in enumerate(out_mask):
             if cfg.TRAIN.LOSS not in ['cls']:
                 # score = np.mean(each_mask.data.cpu().numpy())
-                score_list.append(np.mean(each_mask) * math.tanh(10 * cls[idx][1]))
+                score_list.append(np.mean(each_mask) * sigmoid(6.66 * cls[idx][1]))
             else:
                 score = cls
                 score_list += score.cpu().numpy().tolist()
