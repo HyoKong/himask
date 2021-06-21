@@ -1,0 +1,34 @@
+TRAIN:
+  WORKERS: 24
+  BATCH_SIZE: 36
+  SCALE_LIST:
+    - 0.2
+
+  LR: 2e-3
+  LAMBDA: 0.5
+  SCHEDULER: multiStep
+  MILESTONES:
+    - 20
+    - 55
+    - 100
+    - 120
+    - 140
+    - 160
+    - 180
+  GAMMA: 0.5
+  EPOCH: 200
+  NUM_PATCHES:
+    - 1
+  SOFT_LABEL: False
+  RESUME: True
+
+
+DATA:
+  IMG_SIZE: 288
+  CROP_SIZE: 256
+  LABEL_SIZE: 32
+
+
+MODEL:
+  NAME: 'CDCN'
+  HRNET: 'hrnet_w32'
