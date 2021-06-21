@@ -19,7 +19,7 @@ database/
 └── train_label.txt
 
 output/
-├── model_dump
+└── model_dump
     └── *.h5 (Please put the pre-trained model in this folder.)
 
 ```
