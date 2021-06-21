@@ -9,14 +9,16 @@ TRAIN:
   SCHEDULER: multiStep
   MILESTONES:
     - 20
-    - 55
+    - 60
     - 100
     - 120
     - 140
     - 160
     - 180
+    - 200
+    - 220
   GAMMA: 0.5
-  EPOCH: 200
+  EPOCH: 240
   NUM_PATCHES:
     - 1
   SOFT_LABEL: False
