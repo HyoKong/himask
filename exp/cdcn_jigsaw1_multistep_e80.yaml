@@ -8,7 +8,7 @@ TRAIN:
   LAMBDA: 0.5
   SCHEDULER: multiStep
   MILESTONES:
-    - 20
+    - 30
     - 60
     - 100
     - 120
