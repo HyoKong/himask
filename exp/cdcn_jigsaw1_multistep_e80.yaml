@@ -22,7 +22,7 @@ TRAIN:
   NUM_PATCHES:
     - 1
   SOFT_LABEL: False
-  RESUME: True
+  RESUME: False
 
 
 DATA:
