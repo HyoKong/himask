@@ -33,9 +33,6 @@ output/
 The json files and the parsing maps can be downloaded from: [here](https://drive.google.com/drive/folders/1mVCgaUKAU64lEshzTZSznSZL1cbqg77n?usp=sharing).
 
 
-## Model
-The pre-trained model can be downloaded from: [here](https://drive.google.com/drive/folders/1mVCgaUKAU64lEshzTZSznSZL1cbqg77n?usp=sharing).
-
 ## Train & Eval
 ```
 cd main
