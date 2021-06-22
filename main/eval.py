@@ -162,6 +162,8 @@ if __name__ == '__main__':
 
     # imgPathList = read_txt(txtPath)
     resultDict = {}
+    resultDict1 = {}
+    resultDict2 = {}
     count = 1
     # for i, imgPath in enumerate(tqdm(imgPathList)):
     for i, dataDict in enumerate(tqdm(dataLoader)):
@@ -192,14 +194,18 @@ if __name__ == '__main__':
                 # out_mask, outDict = model(imgList)
                 out_mask, cls = model(imgList)
                 # cls = F.sigmoid(cls)
-                out_mask = F.tanh(out_mask)
+                out_mask = F.sigmoid(out_mask * 1000)
         out_mask = torch.sum(out_mask, dim=1).data.cpu().numpy()
         # mask = out_mask[0, ...].data.cpu().numpy()
         score_list = []
+        score_list1  = []
+        score_list2  = []
         for idx, each_mask in enumerate(out_mask):
             if cfg.TRAIN.LOSS not in ['cls']:
                 # score = np.mean(each_mask.data.cpu().numpy())
-                score_list.append(np.mean(each_mask) * sigmoid(6.66 * cls[idx][1]))
+                score_list.append(np.mean(each_mask) * sigmoid(6.66 * cls[idx][1].cpu()))
+                score_list1.append(np.mean(each_mask))
+                score_list2.append(sigmoid(6.66 * cls[idx][1].cpu()))
             else:
                 score = cls
                 score_list += score.cpu().numpy().tolist()
@@ -207,6 +213,10 @@ if __name__ == '__main__':
             # score_list += score.cpu().numpy().tolist()
         for each_score, imgPath in zip(score_list, imgPathList):
             resultDict[imgPath] = each_score
+        for each_score, imgPath in zip(score_list1, imgPathList):
+            resultDict1[imgPath] = each_score
+        for each_score, imgPath in zip(score_list2, imgPathList):
+            resultDict2[imgPath] = each_score
         # if int(gtDict[imgPath]) == 0 and score <=0:
         #     excelWriter.writeRow(oriImg, imgPath, score)
         # elif int(gtDict[imgPath]) == 1 and score >=0:
@@ -215,11 +225,23 @@ if __name__ == '__main__':
     # excelWriter.close()
     # save results
     resultPath = os.path.join('..', 'result', '{}.txt'.format(time.strftime("%Y-%m-%d_%H-%M-%S", time.localtime())))
+    if not os.path.exists(os.path.dirname(resultPath)):
+        os.makedirs(os.path.dirname(resultPath), exist_ok=True)
     count = 1
     with open(resultPath, 'w') as f:
-        for k, v in resultDict.items():
+        for k, v in resultDict2.items():
             f.write('{} {}\n'.format(k, v))
         f.close()
+
+    # with open(os.path.join(os.path.dirname(resultPath), 'parsing.txt'), 'w') as f:
+    #     for k, v in resultDict1.items():
+    #         f.write('{} {}\n'.format(k, v))
+    #     f.close()
+    #
+    # with open(os.path.join(os.path.dirname(resultPath), 'cls.txt'), 'w') as f:
+    #     for k, v in resultDict2.items():
+    #         f.write('{} {}\n'.format(k, v))
+    #     f.close()
     # f = zipfile.ZipFile(resultPath, 'w', zipfile.ZIP_DEFLATED)
     # f.write(resultPath.replace('txt', 'zip'))
     # f.close()
