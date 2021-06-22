@@ -175,7 +175,7 @@ def main():
                     abs_loss = abs_criterion(out_mask, mask)
                     cont_loss = contrastive_criterion(out_mask, mask)
                     cls_loss = ce_criterion(out_cls, label)
-                    loss = cfg.TRAIN.LAMBDA * abs_loss + (1 - cfg.TRAIN.LAMBDA) * cont_loss + cls_loss * 0.5
+                    loss = cfg.TRAIN.LAMBDA * abs_loss + (1 - cfg.TRAIN.LAMBDA) * cont_loss + cls_loss * 0.8
                 else:
                     abs_loss = None
                     cont_loss = None
