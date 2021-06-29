@@ -32,7 +32,7 @@ from model.cls_hrnet import HighResolutionNet as HighResolutionNet_Cls
 from model.vit import ViT as ViT
 
 from data.himask import Evaluation_Dataset
-from data.MPDataLoader import DataLoader
+# from data.MPDataLoader import DataLoader
 from collections import OrderedDict
 
 import zipfile
